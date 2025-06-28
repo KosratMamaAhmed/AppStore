@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "name": "ئەپی نموونە",
+    "description": "ئەمە وەسفێکی نموونەییە بۆ ئەپێکی کوردی. دەتوانیت لە ئەدمین پانێڵەوە دەستکاری بکەیت.",
+    "logo": "/public/logos/example.png",
+    "apk_url": "https://example.com/app.apk",
+    "version": "1.0.0",
+    "file_size_mb": 25.5,
+    "download_count": 1250,
+    "is_pinned": true,
+    "category": "ئامراز"
+  }
+]
