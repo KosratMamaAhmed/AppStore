@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const params = new URLSearchParams(window.location.search);
     const appId = parseInt(params.get('id'));
-    let currentApp = null;
+    let allApps = [];
 
     const loadAppDetails = async () => {
         if (!appId) {
@@ -15,88 +15,69 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            // هێنانی زانیارییە بنەڕەتییەکان لە data.json
             const response = await fetch(`data.json?v=${new Date().getTime()}`);
-            const apps = await response.json();
-            currentApp = apps.find(a => a.id === appId);
+            const data = await response.json();
+            const app = data.apps.find(a => a.id === appId);
+            const category = data.categories.find(c => c.id === app.category_id);
 
-            if (!currentApp) {
+            if (!app) {
                 container.innerHTML = '<h1>404 - ئەپ نەدۆزرایەوە</h1>';
                 return;
             }
 
-            // هێنانی ژمارەی داگرتنی ڕاستەقینە لە باکێند
-            try {
-                const countResponse = await fetch(`/api/downloads?id=${currentApp.id}`);
-                if (countResponse.ok) {
-                    const data = await countResponse.json();
-                    currentApp.download_count = data.count;
-                }
-            } catch (e) {
-                console.error("Could not fetch live download count, using default.", e);
-                // ئەگەر کێشە هەبوو، ژمارەکەی ناو data.json بەکاردەهێنێت
-                currentApp.download_count = currentApp.download_count || 0;
-            }
+            document.title = app.name;
 
-            renderApp();
+            const logoSrc = app.logo ? app.logo.substring(1) : 'https://via.placeholder.com/120?text=Logo';
+            const screenshotsHTML = app.screenshots && app.screenshots.length > 0
+                ? `<div class="screenshots-gallery">${app.screenshots.map(ss => `<img src="${ss.substring(1)}" alt="Screenshot" class="screenshot-thumb">`).join('')}</div>`
+                : '<p>هیچ سکرین شوتێک دانەنراوە.</p>';
+            
+            const descriptionHTML = marked.parse(app.description || 'هیچ وەسفێک دانەنراوە.');
 
-        } catch (error) {
-            container.innerHTML = '<h1>هەڵەیەک لە بارکردنی داتاکان ڕوویدا</h1>';
-            console.error(error);
-        }
-    };
-
-    const renderApp = () => {
-        document.title = currentApp.name;
-
-        const logoSrc = currentApp.logo ? currentApp.logo.substring(1) : 'https://via.placeholder.com/120?text=Logo';
-        const screenshotsHTML = currentApp.screenshots && currentApp.screenshots.length > 0
-            ? currentApp.screenshots.map(ss => `<img src="${ss.substring(1)}" alt="Screenshot" class="screenshot-thumb">`).join('')
-            : '<p>هیچ سکرین شوتێک دانەنراوە.</p>';
-
-        container.innerHTML = `
-            <div class="app-detail-header">
-                <img src="${logoSrc}" alt="${currentApp.name}" class="app-detail-logo">
-                <div class="app-detail-title">
-                    <h1>${currentApp.name}</h1>
-                    <p>وەشان: ${currentApp.version} | پۆلێن: ${currentApp.category}</p>
+            container.innerHTML = `
+                <div class="app-detail-header">
+                    <img src="${logoSrc}" alt="${app.name}" class="app-detail-logo">
+                    <div class="app-detail-title">
+                        <h1>${app.name}</h1>
+                        <p>وەشان: ${app.version} | پۆلێن: ${category ? category.name : 'نادیار'}</p>
+                    </div>
+                    <div class="download-section">
+                        <a href="${app.play_store_url || (app.apk_path ? app.apk_path.substring(1) : '#')}" class="download-btn" id="download-link">
+                            <div class="progress-bar"></div>
+                            <span>داگرتن (${app.file_size_mb || 'N/A'} MB)</span>
+                        </a>
+                        <p style="font-size: 0.9rem; color: #6e6e73; margin-top: 0.5rem;">ژمارەی داگرتنەکان: ${app.download_count || 0}</p>
+                    </div>
                 </div>
-                <div class="download-section">
-                    <a href="#" id="download-link" class="download-btn">
-                        <div class="progress-bar"></div>
-                        <span>داگرتن (${currentApp.file_size_mb || 'N/A'} MB)</span>
-                    </a>
-                    <p style="font-size: 0.9rem; color: #6e6e73; margin-top: 0.5rem;">ژمارەی داگرتنەکان: <span id="download-count">${currentApp.download_count}</span></p>
-                </div>
-            </div>
-            <div class="app-detail-body">
-                <h3>وەسفی ئەپ</h3>
-                <p>${currentApp.description || 'هیچ وەسفێک دانەنراوە.'}</p>
-                <h3>وێنەی ناو ئەپ</h3>
-                <div class="screenshots-gallery">
+                <div class="app-detail-body">
+                    <h3>وەسفی ئەپ</h3>
+                    <div class="markdown-content">${descriptionHTML}</div>
+                    <h3>وێنەی ناو ئەپ</h3>
                     ${screenshotsHTML}
                 </div>
-            </div>
-        `;
+            `;
 
-        document.querySelectorAll('.screenshot-thumb').forEach(img => {
-            img.addEventListener('click', () => {
-                modal.style.display = "block";
-                modalImg.src = img.src;
+            document.querySelectorAll('.screenshot-thumb').forEach(img => {
+                img.addEventListener('click', () => {
+                    modal.style.display = "block";
+                    modalImg.src = img.src;
+                });
             });
-        });
 
-        document.getElementById('download-link').addEventListener('click', (e) => {
-            e.preventDefault();
-            handleDownload(currentApp);
-        });
+            document.getElementById('download-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                handleDownload(app);
+            });
+
+        } catch (error) {
+            container.innerHTML = '<h1>هەڵەیەک ڕوویدا</h1>';
+        }
     };
 
     const handleDownload = async (app) => {
         const downloadBtn = document.getElementById('download-link');
         const downloadBtnSpan = downloadBtn.querySelector('span');
         const progressBar = downloadBtn.querySelector('.progress-bar');
-        const downloadCountSpan = document.getElementById('download-count');
         
         downloadBtn.style.pointerEvents = 'none';
 
@@ -112,22 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // زیادکردنی ژمارەی داگرتن لە ڕێگەی API
-        try {
-            const countResponse = await fetch('/api/downloads', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: app.id })
-            });
-            if (countResponse.ok) {
-                const data = await countResponse.json();
-                downloadCountSpan.textContent = data.newCount;
-            }
-        } catch (error) {
-            console.error('Failed to update download count via API:', error);
-        }
-
-        // دەستپێکردنی داگرتنی فایل
         try {
             const response = await fetch(app.apk_path.substring(1));
             const contentLength = +response.headers.get('Content-Length');
@@ -164,6 +129,10 @@ document.addEventListener('DOMContentLoaded', () => {
             a.click();
             window.URL.revokeObjectURL(url);
 
+            setTimeout(() => {
+                alert(`فایلی ${app.name}.apk داگیرا.\nتکایە لە بەشی 'Downloads'ـی وێبگەڕەکەت یان 'File Manager'ـی مۆبایلەکەت بیکەرەوە بۆ دامەزراندن.`);
+            }, 1000);
+
             downloadBtnSpan.textContent = "داگیرا ✓";
             setTimeout(() => {
                 downloadBtnSpan.textContent = `داگرتن (${app.file_size_mb || 'N/A'} MB)`;
@@ -173,7 +142,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             downloadBtnSpan.textContent = "هەڵە لە داگرتن";
-            console.error("Download error:", error);
         }
     };
 

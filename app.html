@@ -12,9 +12,13 @@
 </head>
 <body>
     <div class="container">
-        <header class="page-header">
-            <a href="/" class="back-button">→ گەڕانەوە بۆ سەرەکی</a>
-        </header>
+        <nav class="navbar">
+            <a href="/" class="nav-logo">کۆگای ئەپ</a>
+            <div class="nav-actions">
+                <a href="/" class="back-button">→ گەڕانەوە</a>
+                <button id="theme-toggle" class="theme-toggle">🌙</button>
+            </div>
+        </nav>
         <main>
             <div id="app-detail-container">
                 <div class="loader"></div>
@@ -24,11 +28,7 @@
             <p>© 2024 - هەموو مافێکی پارێزراوە</p>
         </footer>
     </div>
-
-    <div id="screenshot-modal" class="modal">
-        <span class="close-modal">×</span>
-        <img class="modal-content" id="modal-img">
-    </div>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="app.js"></script>
     <script src="app-details.js"></script>
 </body>

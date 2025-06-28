@@ -14,22 +14,36 @@
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="hero-section">
-                <h1>کۆگای ئەپی کوردی</h1>
-                <p>باشترین و نوێترین ئەپڵیکەیشنە کوردییەکان لێرە دابگرە</p>
+        <nav class="navbar">
+            <a href="/" class="nav-logo">کۆگای ئەپ</a>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#" class="nav-link active" data-id="all">هەموو</a>
             </div>
-        </header>
+            <div class="nav-actions">
+                <input type="text" id="search-box" class="search-box" placeholder="گەڕان...">
+                <button id="theme-toggle" class="theme-toggle">🌙</button>
+            </div>
+        </nav>
+        
         <main>
-            <div id="app-list" class="app-grid">
-                <div class="loader"></div>
+            <div id="pinned-section" style="display: none;">
+                <h2>پن کراوەکان</h2>
+                <div id="pinned-apps" class="app-grid pinned-grid"></div>
+            </div>
+            <div id="all-apps-section">
+                <h2>هەموو ئەپەکان</h2>
+                <div id="app-list" class="app-grid">
+                    <div class="loader"></div>
+                </div>
             </div>
         </main>
+        
         <footer>
             <p>© 2024 - هەموو مافێکی پارێزراوە</p>
         </footer>
     </div>
-    <button id="install-pwa-btn" style="display:none; position: fixed; bottom: 20px; left: 20px; padding: 10px 15px; background: var(--primary-color); color: white; border: none; border-radius: 8px; cursor: pointer; z-index: 999;">دامەزراندن</button>
+    <button id="install-pwa-btn" class="install-btn">دامەزراندن</button>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="app.js"></script>
     <script src="script.js"></script>
 </body>
