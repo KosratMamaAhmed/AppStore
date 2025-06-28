@@ -10,5 +10,16 @@
     "download_count": 1250,
     "is_pinned": true,
     "category": "ئامراز"
+  },
+  {
+    "name": "kosrat medical",
+    "description": "باشترین بەرنامەی دەرمانی بۆ سیستەمی ئەندرۆید\r\n\r\nخۆڕایی \r\nئاسان لە بەکارهێنان",
+    "apk_url": "https://vercel.com/kosratmamaahmeds-projects/~/usage",
+    "version": "١",
+    "file_size_mb": "1.2",
+    "category": "Game",
+    "is_pinned": true,
+    "id": 1751118009408,
+    "logo": "/public/logos/1751118009403-playstore.png"
   }
 ]
