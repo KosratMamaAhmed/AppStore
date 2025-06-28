@@ -1,25 +1,18 @@
 [
   {
-    "id": 1,
-    "name": "ئەپی نموونە",
-    "description": "ئەمە وەسفێکی نموونەییە بۆ ئەپێکی کوردی. دەتوانیت لە ئەدمین پانێڵەوە دەستکاری بکەیت.",
-    "logo": "/public/logos/example.png",
-    "apk_url": "https://example.com/app.apk",
-    "version": "1.0.0",
-    "file_size_mb": 25.5,
-    "download_count": 1250,
+    "id": 169999,
+    "name": "Kurd AppStore",
+    "description": "باشترین و نوێترین ئەپڵیکەیشن و یارییە کوردییەکان لێرە بەردەستن. ئەم کۆگایە بە شێوەیەکی بەردەوام نوێ دەکرێتەوە و باشترین ئەپەکانتان بۆ هەڵدەبژێرێت. دەتوانیت بە ئاسانی ئەپەکان دابگریت و چێژیان لێ ببینیت.",
+    "version": "2.1.0",
+    "file_size_mb": "15.5",
+    "category": "ئامراز",
     "is_pinned": true,
-    "category": "ئامراز"
-  },
-  {
-    "name": "kosrat medical",
-    "description": "باشترین بەرنامەی دەرمانی بۆ سیستەمی ئەندرۆید\r\n\r\nخۆڕایی \r\nئاسان لە بەکارهێنان",
-    "apk_url": "https://vercel.com/kosratmamaahmeds-projects/~/usage",
-    "version": "١",
-    "file_size_mb": "1.2",
-    "category": "Game",
-    "is_pinned": true,
-    "id": 1751118009408,
-    "logo": "/public/logos/1751118009403-playstore.png"
+    "logo": "/logos/1.png",
+    "apk_path": "/apks/1.apk",
+    "screenshots": [
+      "/screenshots/s1.png",
+      "/screenshots/s2.png"
+    ],
+    "download_count": 1024
   }
 ]

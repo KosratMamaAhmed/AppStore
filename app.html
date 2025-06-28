@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>کۆگای ئەپی کوردی</title>
+    <title>ورردەکاری ئەپ</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
@@ -11,14 +11,11 @@
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="hero-section">
-                <h1>کۆگای ئەپی کوردی</h1>
-                <p>باشترین و نوێترین ئەپڵیکەیشنە کوردییەکان لێرە دابگرە</p>
-            </div>
+        <header class="page-header">
+            <a href="/" class="back-button">→ گەڕانەوە بۆ سەرەکی</a>
         </header>
         <main>
-            <div id="app-list" class="app-grid">
+            <div id="app-detail-container">
                 <div class="loader"></div>
             </div>
         </main>
@@ -26,6 +23,13 @@
             <p>© 2024 - هەموو مافێکی پارێزراوە</p>
         </footer>
     </div>
-    <script src="script.js"></script>
+
+    <!-- Modal for viewing screenshots -->
+    <div id="screenshot-modal" class="modal">
+        <span class="close-modal">×</span>
+        <img class="modal-content" id="modal-img">
+    </div>
+
+    <script src="app-details.js"></script>
 </body>
 </html>
