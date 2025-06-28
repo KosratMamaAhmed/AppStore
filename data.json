@@ -14,5 +14,21 @@
       "/screenshots/s2.png"
     ],
     "download_count": 1024
+  },
+  {
+    "id": 1751128727102,
+    "name": "Kosrat Mama Ahmed",
+    "description": "خێرایی\r\nئاسان \r\nلە بەکارهێنان",
+    "version": "1.8",
+    "file_size_mb": "1.9",
+    "category": "یاری",
+    "is_pinned": true,
+    "download_count": 0,
+    "logo": "/logos/1751128727075-512.png",
+    "apk_path": "/apks/1751128727078-KurDX_1.0.apk",
+    "screenshots": [
+      "/screenshots/1751128727087-20201007_194046.png",
+      "/screenshots/1751128727094-20201008_125609.png"
+    ]
   }
 ]
