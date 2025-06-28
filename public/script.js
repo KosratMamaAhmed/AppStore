@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // فەنکشن بۆ هێنانی داتاکان لە فایلی data.json
     const fetchApps = async () => {
         try {
-            // زیادکردنی پارامەتەرێک بۆ ڕێگریکردن لە کاشکردنی فایلەکە
-            const response = await fetch(`data.json?v=${new Date().getTime()}`);
+            // لینکەکە ئاماژە بە فایلی ناو public دەکات
+            const response = await fetch(`/public/data.json?v=${new Date().getTime()}`);
             
             if (!response.ok) {
                 throw new Error(`هەڵە لە بارکردنی داتاکان: ${response.statusText}`);
